@@ -1,8 +1,10 @@
-from watchdog.observers import Observer
-from watchdog.events import PatternMatchingEventHandler
-import search_directory
-import os
 import ast
+import os
+
+from watchdog.events import PatternMatchingEventHandler
+from watchdog.observers import Observer
+
+import search_directory
 
 lookup_dict = search_directory.file_system_dict
 
@@ -89,7 +91,7 @@ def lookup(drive):
     observer = Observer()
     event_handler = ExampleHandler(ignore_patterns=['*.tmp','*AppData*','*Temp*','*$*','*ProgramData*','*__*'])  # create event handler
     # set observer to use created handler in directory
-    observer.schedule(event_handler, path='C:\\Akhilesh\\', recursive=True)
+    observer.schedule(event_handler, path='D:\\Akhilesh\\', recursive=True)
     observer.start()
     observer.join()
 

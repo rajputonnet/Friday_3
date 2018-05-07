@@ -1,5 +1,6 @@
 # pip install git+https://github.com/abenassi/Google-Search-API/
 
+import ctypes
 import os
 import random
 import webbrowser
@@ -53,7 +54,7 @@ def get_index(text):
         return None
 
 
-def play_sound_from_polly(result, is_google):
+def play_sound_from_polly(result, is_google=False):
     global counter
     mp3_name = "output{}.mp3".format(counter)
 
@@ -206,10 +207,17 @@ if __name__ == '__main__':
             continue
         elif 'post' in voice_note:
             media = to_be_posted(voice_note)
+            play_sound_from_polly('Sure sir')
             if media == 'facebook':
                 facebook().post_on_wall(voice_note.split(media + ' ')[1].capitalize())
-                print('posted')
+                play_sound_from_polly('Posted sir')
 
+            continue
+        elif 'lock' in voice_note and 'unlock' not in voice_note:
+            for value in ['windows', 'pc', 'system']:
+                if value in voice_note:
+                    ctypes.windll.user32.LockWorkStation()
+                    play_sound_from_polly('System locked sir')
             continue
 
         elif 'thank you' in voice_note:
@@ -219,3 +227,6 @@ if __name__ == '__main__':
         elif 'goodbye' in voice_note:
             playsound('mp3/friday/bye.mp3')
             continue
+        else:
+            if voice_note != '':
+                play_sound_from_polly('command not found.')

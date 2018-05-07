@@ -1,7 +1,7 @@
 import facebook
 
 access_token = "<Your Access ID>"
-fb = facebook.GraphAPI(access_token, version=2.11)
+fb = facebook.GraphAPI(access_token)
 
 
 class facebook:

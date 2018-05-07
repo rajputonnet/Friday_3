@@ -1,9 +1,9 @@
-import string
-import os
-from ctypes import windll
-import tempfile
-import stat
 import ast
+import os
+import stat
+import string
+import tempfile
+from ctypes import windll
 
 temp_dir = tempfile.gettempdir()
 
@@ -43,7 +43,7 @@ def find():
     winpath = os.environ['WINDIR'].split(':')[0]
     print(winpath)
     # drives = get_drives(
-    drives = ['C']
+    drives = ['D']
     for drive in drives:
         # drive='D'
         print(drive)
