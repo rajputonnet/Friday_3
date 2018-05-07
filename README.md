@@ -11,6 +11,7 @@ To have this, first you need to install some mudules as listed below:
 4) PyAudio
 5) watchdog
 6) playsound
+7) facebook-sdk
 
 If you face any problem, I have YouTube Channel also. Where i have created a playlist for your better understanding.
 
