@@ -170,33 +170,38 @@ if __name__ == '__main__':
                     if key in k.lower():
                         opt_dict.update({k: lookup_drive_change.lookup_dict.get(k)})
 
-                print(opt_dict)
-                if len(opt_dict) == 1:
-                    for key in opt_dict.keys():
-                        print('explorer {}'.format(opt_dict.get(key)))
-                        os.system('explorer {}'.format(opt_dict.get(key)))
-                elif len(opt_dict) > 1:
-                    play_sound_from_polly('I have found multiple instances. Which one you want?', is_google=False)
-                    default = 0
-                    index = None
-                    for i, k in enumerate(opt_dict.keys()):
-                        print(k.split('.')[0].split('_')[0] + ' from {} folder'.format(opt_dict.get(k).split('\\')[-2]))
-                        play_sound_from_polly(
-                            k.split('.')[0].split('_')[0] + ' from {} folder '.format(opt_dict.get(k).split('\\')[-2]),
-                            is_google=False)
+                if len(opt_dict) > 1:
+                    print(opt_dict)
+                    if len(opt_dict) == 1:
+                        for key in opt_dict.keys():
+                            print('explorer {}'.format(opt_dict.get(key)))
 
-                        default = i
+                            os.system('explorer {}'.format(opt_dict.get(key)))
+                    elif len(opt_dict) > 1:
+                        play_sound_from_polly('I have found multiple instances. Which one you want?', is_google=False)
+                        default = 0
+                        index = None
+                        for i, k in enumerate(opt_dict.keys()):
+                            print(k.split('.')[0] + ' from {} folder'.format(opt_dict.get(k).split('\\')[-2]))
+                            play_sound_from_polly(
+                                k.split('.')[0] + ' from {} folder '.format(opt_dict.get(k).split('\\')[-2]),
+                                is_google=False)
 
-                    text = read_voice_cmd().lower()
-                    print(text)
-                    index = get_index(text)
+                            default = i
 
-                    if index != None:
-                        print('explorer {}"'.format(
-                            lookup_drive_change.lookup_dict.get(list(opt_dict.keys())[index])) + ' ' + str(index))
-                        play_sound_from_polly('Ok Sir', False)
-                        os.system(
-                            'explorer {}"'.format(lookup_drive_change.lookup_dict.get(list(opt_dict.keys())[index])))
+                        text = read_voice_cmd().lower()
+                        print(text)
+                        index = get_index(text)
+
+                        if index != None:
+                            print('explorer {}"'.format(
+                                lookup_drive_change.lookup_dict.get(list(opt_dict.keys())[index])) + ' ' + str(index))
+                            play_sound_from_polly('Ok Sir', False)
+                            os.system(
+                                'explorer {}"'.format(
+                                    lookup_drive_change.lookup_dict.get(list(opt_dict.keys())[index])))
+                else:
+                    play_sound_from_polly('search not found')
 
             continue
         elif is_valid_google_search(voice_note):
