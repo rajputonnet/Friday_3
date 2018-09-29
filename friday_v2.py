@@ -31,6 +31,8 @@ mp3_google_search = ['mp3/friday/google_search_1.mp3', 'mp3/friday/google_search
 mp3_greeting_list = ['mp3/friday/greeting_accept.mp3', 'mp3/friday/greeting_accept_2.mp3']
 mp3_open_launch_list = ['mp3/friday/open_1.mp3', 'mp3/friday/open_3.mp3', 'mp3/friday/open_2.mp3']
 
+python_scripts = {'greeting': 'scripts/test.py'}
+
 error_occurrence = 0
 counter = 0
 
@@ -140,6 +142,14 @@ def is_valid_note(greet_dict, voice_note):
     return False
 
 
+def run_python_script(voice_note):
+    script_name = voice_note.split(' ')[3]
+    for key, value in python_scripts.items():
+        if key == script_name:
+            os.system('python {}'.format(value))
+
+
+
 if __name__ == '__main__':
 
     playsound('mp3/friday/greeting.mp3')
@@ -213,16 +223,18 @@ if __name__ == '__main__':
                 play_sound_from_polly('Posted sir')
 
             continue
-        elif 'lock' in voice_note and 'unlock' not in voice_note:
-            for value in ['windows', 'pc', 'system']:
-                if value in voice_note:
-                    ctypes.windll.user32.LockWorkStation()
-                    play_sound_from_polly('System locked sir')
-            continue
-
+        elif 'lock' in voice_note:
+            play_sound_from_polly('Sure sir')
+            for value in ['pc', 'system', 'windows']:
+                ctypes.windll.user32.LockWorkStation()
+            play_sound_from_polly('Your system is locked.')
         elif 'thank you' in voice_note:
 
             play_sound(mp3_thanktou_list)
+            continue
+        elif 'run python script' in voice_note:
+
+            run_python_script(voice_note)
             continue
         elif 'goodbye' in voice_note:
             playsound('mp3/friday/bye.mp3')
